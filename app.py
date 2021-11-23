@@ -28,5 +28,5 @@ def book_handler(book_id):
     resp, code = functions[request.method](request, book_id)
     return jsonify(resp), code
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)

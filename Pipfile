@@ -14,7 +14,7 @@ pytest-cov = "*"
 
 [scripts]
 dev = "bash -c \"export FLASK_ENV='development' && flask run\""
-start = "gunicorn app:app"
+start = "gunicorn wsgi:app"
 test = "pytest ."
 coverage = "pytest --cov-report term-missing --cov=."
 
