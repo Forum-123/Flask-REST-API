@@ -13,13 +13,13 @@ def find_by_id(bid):
     try:
         book = [b for b in books if b['id'] == bid]
         if len(book) == 0:
-            return f"No book found with id of {bid}"
-        return book[0]
+            return f"No book found with id of {bid}", 404
+        return book[0], 200
     except:
-        raise Exception(f"No book found with id of {bid}")
+        raise Exception(f"Error finding book with id of {bid}")
 
 def show(req, bid):
-    return find_by_id(bid), 200
+    return find_by_id(bid)
 
 def create(req):
     new_book = req.get_json()
@@ -28,7 +28,9 @@ def create(req):
     return new_book, 201
 
 def update(req, bid):
-    book = find_by_id(bid)
+    book, status = find_by_id(bid)
+    if status == 404:
+        return book, 404
     data = req.get_json()
     print(data)
     for key, val in data.items():
@@ -36,6 +38,8 @@ def update(req, bid):
     return book, 200
 
 def destroy(req, bid):
-    book = find_by_id(bid)
+    book, status = find_by_id(bid)
+    if status == 404:
+        return book, 404
     books.remove(book)
     return f"Book {bid} has been deleted", 204
